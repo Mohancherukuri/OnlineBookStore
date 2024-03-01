@@ -1,0 +1,72 @@
+/* Updated CartItemCard.css */
+
+.cart-item {
+    display: flex;
+    padding: 2rem;
+    border: 1px solid #555;
+    border-radius: 1rem;
+    margin: 2rem 0;
+}
+
+.card-item-img {
+    width: 7rem;
+}
+
+
+.cart-item-content-container {
+    padding-left: 2rem;
+    padding-top: 10px;
+}
+
+.cart-item-price {
+    padding-top: 1.5rem;
+    color: orange;
+}
+
+.cart-item-content-container p {
+    padding-top: 5px;
+}
+
+.delete-button {
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.delete-button:hover {
+    background-color: #555;
+}
+
+.add-to-cart-btn{
+    width: 300px;
+}
+
+/* Responsive Styles for Mobile Screens */
+
+@media only screen and (max-width: 420px) {
+    .cart-item {
+        flex-direction: column;
+        padding: 1rem;
+    }
+
+    .cart-item-img-container{
+        text-align: center;
+    }
+
+    .card-item-img {
+        width: 100%;
+        margin-bottom: 1rem;
+    }
+
+    .cart-item-content-container {
+        padding: 1rem;
+        
+    }
+
+    .cart-item-price {
+        padding-top: 1rem;
+    }
+}

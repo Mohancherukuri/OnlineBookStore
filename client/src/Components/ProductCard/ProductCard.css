@@ -1,0 +1,66 @@
+.product-listing-card {
+    border: 1px solid grey;
+    width: 100%;
+    padding: 1rem 1rem;
+    border-radius: 10px;
+}
+
+.product-img-container {
+    width: 100%;
+    height: 15rem;
+    text-align: center;
+}
+
+.product-listing-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.product-details-container {
+    padding-top: 2rem;
+    margin-top: 10px;
+    min-height: 12rem;
+}
+
+.author-name {
+    margin-top: 20px;
+    font-size: 1rem;
+    padding: 0.5rem;
+}
+
+.pricing {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: orange;
+}
+
+.product-listing-button {
+    display: inline-block;
+
+    background-color: #000;
+    width: 100%;
+    padding: 0.6rem 0;
+    text-align: center;
+    color: white;
+    text-decoration: none;
+    margin-top: 1rem;
+}
+
+.product-listing-button:hover {
+    background-color: orange;
+    transition: 0.2s ease-in;
+}
+
+.title-container {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    /* Number of lines to display before truncating */
+    -webkit-box-orient: vertical;
+    min-height: 30px;
+    /* Set a minimum height for the title container */
+    max-height: 70px;
+    /* Set a maximum height for the title container */
+}

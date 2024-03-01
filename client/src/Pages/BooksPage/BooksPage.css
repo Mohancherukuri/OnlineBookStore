@@ -1,0 +1,16 @@
+.search-container{
+    width: 60%;
+    margin: auto;
+    padding-top: 4%;
+}
+
+.search-container h3{
+    text-align: center;
+    padding-bottom: 1rem;
+}
+
+@media (max-width: 430px) {
+    .search-container{
+        width: 90%;
+    }
+  }

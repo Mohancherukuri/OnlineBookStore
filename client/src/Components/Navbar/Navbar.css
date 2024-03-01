@@ -1,0 +1,55 @@
+.navbar-container{
+    position: absolute ;
+    top : 0;
+    width: 100%;
+    z-index: 1;
+    padding: 0.7rem 3rem ;
+}
+
+.logo{
+    font-size: 1.5rem;
+    color: rgb(138, 92, 7);
+    text-decoration: none;
+    font-family: cursive;
+}   
+
+.nav-links{
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.5rem;
+    padding-left: 20px;
+    transition: 0.2s ease-in;
+}
+
+.dark-nav-links {
+    color: #000 !important;
+    text-decoration: none !important;
+    font-size: 1.5rem !important;
+    padding-left: 20px !important;
+    transition: 0.2s ease-in !important;
+}
+
+
+.nav-links:hover{
+    color: orange;
+}
+
+.background-dark{
+    background-color: #333;
+    position: relative !important;
+}
+
+.background-transparent{
+    background-color: transparent;
+    color: #333;
+
+}
+.nav-link-container{
+    padding-right: 2rem;
+}
+
+.background-dark-absolute{
+    background-color: #333;
+    position: absolute ;
+    color: #fff;
+}

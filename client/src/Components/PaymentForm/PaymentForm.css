@@ -1,0 +1,49 @@
+.payment-form-container {
+    width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+  }
+  
+  .payment-form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .card-label,
+  .expiry-label,
+  .cvc-label {
+    margin-bottom: 10px;
+  }
+  
+  .card-input,
+  .expiry-input,
+  .cvc-input {
+    padding: 8px;
+    width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    outline: none;
+  }
+  
+  .pay-now-button {
+    background-color: #4caf50;
+    color: #fff;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .pay-now-button:hover {
+    background-color: #45a049;
+  }
+  
+  .back-button{
+    border: none;
+    font-size: 10px;
+  }

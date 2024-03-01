@@ -1,0 +1,44 @@
+###
+put http://localhost:4000/order-api/process-order
+Content-Type: application/json
+
+{
+    "updatedOrders": {
+        "address": {
+            "fullName": "Mohan",
+            "streetAddress": "B-402,Pragathi Paradise",
+            "city": "PragathiNagar",
+            "state": "Hyderabad",
+            "zipCode": "500090"
+        },
+        "cardDetails": {
+            "cardNumber": "123412341234",
+            "expiry": "12/11",
+            "cvc": "123"
+        },
+        "orderItems": [
+            {
+                "_id": "65d1a9f5420278b9de224827",
+                "title": "1984",
+                "author": "George Orwell",
+                "price": 1200,
+                "image": "https://res.cloudinary.com/dcdednhri/image/upload/v1708239350/local-uploads/image-1708239347322.png",
+                "qty": 3
+            },
+            {
+                "_id": "65d444947f98b0fa4acc7268",
+                "title": "The Catcher in the Rye",
+                "author": "J.D. Salinger",
+                "price": 1800,
+                "image": "https://res.cloudinary.com/dcdednhri/image/upload/v1708239113/local-uploads/image-1708239110645.png",
+                "qty": 1
+            }
+        ],
+        "date": "Mon Feb 26 2024"
+    },
+    "username": "test1"
+}
+
+###
+get http://localhost:4000/order-api/get-orders?username=test1
+Content-Type: application/json

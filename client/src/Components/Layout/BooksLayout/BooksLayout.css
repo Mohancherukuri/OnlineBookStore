@@ -1,0 +1,10 @@
+.page-link.dark-active, .dark-active > .page-link{
+    z-index:3;
+    border-color: #333;
+    background-color: #333;
+    color: #fff;
+}
+
+.page-link:hover{
+    cursor: pointer;
+}

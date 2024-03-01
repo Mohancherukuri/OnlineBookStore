@@ -1,0 +1,48 @@
+.qty-button {
+    position: relative;
+    display: flex;
+    align-items: stretch;
+    
+}
+
+.red-btn {
+    color: #f50c0c;
+    background-color: transparent;
+    background-image: none;
+    border-color: #f50c0c;
+
+}
+
+.red-btn:hover,
+.red-btn:focus {
+    color: #fff;
+    background-color: #f50c0c;
+    border-color: #f50c0c;
+}
+
+.green-btn {
+    color: #2b9e08;
+    background-color: transparent;
+    background-image: none;
+    border-color: #2b9e08;
+}
+
+.green-btn:hover,
+.green-btn:focus {
+    color: #fff;
+    background-color: #2b9e08;
+    border-color: #2b9e08;
+    
+}
+
+.bttn{
+display: inline-block;
+  padding: 10px 20px;
+  font-size: 16px;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  background-color: white; /* White background color */
+  border-radius: 4px;
+  transition: background-color 0.3s, color 0.3s;
+}
