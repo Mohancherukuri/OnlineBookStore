@@ -48,9 +48,10 @@ export const updateBookDetailsAPI = async (location, bookDetails) => {
 
 
 export const processOrder = async (updatedOrders) =>{
+    
     return await axios.put("http://localhost:4000/order-api/process-order",updatedOrders);
 }
 
-export const getPreviousOrders = async (username) =>{
-    return await axios.get(`http://localhost:4000/order-api/get-orders?username=${username}`);
+export const getPreviousOrders = async (username,token) =>{
+    return await axios.get(`http://localhost:4000/order-api/get-orders?username=${username}`,{token});
 }

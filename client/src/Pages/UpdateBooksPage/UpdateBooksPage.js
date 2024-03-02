@@ -6,7 +6,7 @@ import BooksFormLayout from '../../Components/Layout/BooksFormLayout/BooksFormLa
 import { Toaster, toast } from 'react-hot-toast'
 
 import { useDispatch, UseDispatch } from 'react-redux'
-import { showLoading,hideLoading } from '../../Redux/Slices/spinnerSlice'
+import { showLoading, hideLoading } from '../../Redux/Slices/spinnerSlice'
 
 import axios from 'axios'
 function UpdateBookpage() {
@@ -18,27 +18,36 @@ function UpdateBookpage() {
     // const [isUpdate, setIsUpdate] = useState(false)
 
     let handleUpdate = async (data) => {
-        console.log(data);
-        data.price = parseInt(data.price);
-        const formData = new FormData();
-        formData.append("_id",data._id);
-        formData.append('image', data.image);
-        formData.append("title", data.title);
-        formData.append("author", data.author);
-        formData.append("description", data.description);
-        formData.append("genere", data.genere);
-        formData.append("price", data.price);
-        formData.append("oldImage",data.oldImage);
-        // console.log(typeof(image))
-        dispatch(showLoading());
-        let dbRes = await axios.put("http://localhost:4000/book-api/update-book",formData);
-        dispatch(hideLoading());
 
-        
-        toast.success("Book Data Updated");
-        setTimeout(()=>{
-            navigate('/admin')
-        },  1000);
+        try {
+            data.price = parseInt(data.price);
+            const formData = new FormData();
+            formData.append("_id", data._id);
+            formData.append('image', data.image);
+            formData.append("title", data.title);
+            formData.append("author", data.author);
+            formData.append("description", data.description);
+            formData.append("genere", data.genere);
+            formData.append("price", data.price);
+            formData.append("oldImage", data.oldImage);
+
+            dispatch(showLoading());
+            let dbRes = await axios.put("http://localhost:4000/book-api/update-book", formData);
+            dispatch(hideLoading());
+
+            if (dbRes.status === 200) {
+                toast.success("Book Data Updated");
+                setTimeout(() => {
+                    navigate('/admin')
+                }, 1000);
+            }
+            else{
+                toast.error("Something went wrong. Try again later")
+            }
+        } catch (error) {
+            dispatch(hideLoading());
+            navigate("/error");
+        }
     }
 
 

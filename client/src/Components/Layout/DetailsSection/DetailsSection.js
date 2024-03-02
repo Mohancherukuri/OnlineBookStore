@@ -11,6 +11,9 @@ import { useDispatch } from 'react-redux';
 import { showLoading,hideLoading } from '../../../Redux/Slices/spinnerSlice';
 import { getBookDetailsAPI } from '../../../utils/apicalls';
 
+
+import { toast,Toaster } from 'react-hot-toast';
+
 function DetailsSection() {
     const navigate = useNavigate();
     const { id } = useParams();
@@ -41,7 +44,7 @@ function DetailsSection() {
             setBookData(res.data.payload);
         }
         catch (e) {
-            console.log(e);
+            
             if(e.response.status === 500){
                 dispatch(hideLoading())
                 navigate("*");
@@ -60,32 +63,20 @@ function DetailsSection() {
     const handleAddToCart = async () => {
         dispatch(showLoading());
         let res = await addToCart(bookData);
-        dispatch(hideLoading());
-
-        setPromptMsg("Book Added to Cart.");
-        setPromptHeading("Success!!!")
-        setShowPopup(true);
-
-        if (res === "BOOK_IN_CART") {
-            setPromptMsg("Book Already in Cart.");
-            setPromptHeading("Notice!!!")
-            setShowPopup(true);
+        dispatch(hideLoading());        
+        if(res === "Book Added to Cart"){
+            toast.success("Book Added to Cart")
         }
-        if (res === "BOOK_ADDED") {
-            setPromptMsg("Book Added to Cart.");
-            setPromptHeading("Success!!!")
-            setShowPopup(true);
-        }
-        if (res === "LOGIN") {
-            setPromptMsg("You need to Login to add Books to the Cart.");
-            setPromptHeading("Notice!!!")
-            setShowPopup(true);
-            setShowPopupAndNavigate(true);
+        else{
+            dispatch(hideLoading());      
+            navigate("/error");
         }
 
 
     }
     return (
+        <>
+        <Toaster/>
         <div className='mt-5'>
             {showPopup && <Popup message={promptMsg} heading={promptHeading} showPopupAndNavigate={showPopupAndNavigate} setShowPopup={setShowPopup} path="/login" />}
             <div className='container details-container'>
@@ -105,6 +96,7 @@ function DetailsSection() {
                 </div>
             </div>
         </div>
+        </>
     )
 }
 

@@ -12,7 +12,7 @@ userApp.post("/login", expressAsyncHandler(userLogin));
 userApp.post("/register", usernameTaken, expressAsyncHandler(userRegistration))
 
 //Update Cart
-userApp.put("/update-cart", expressAsyncHandler(updateUserCart));
+userApp.put("/update-cart",verifyToken, expressAsyncHandler(updateUserCart));
 
 //User Token Validity
 userApp.post("/check-session-validity",verifyToken, expressAsyncHandler(checkSession));

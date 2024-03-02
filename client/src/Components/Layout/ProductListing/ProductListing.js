@@ -5,6 +5,7 @@ import { getAllBookDetailsAPI } from '../../../utils/apicalls';
 import { useNavigate } from 'react-router-dom';
 import { showLoading,hideLoading } from '../../../Redux/Slices/spinnerSlice';
 import { useDispatch } from 'react-redux';
+import { shuffleArray } from '../../../utils/shuffleArray';
 function ProductListing() {
     const navigate = useNavigate();
     let [bookData, setBookData] = useState([]);
@@ -14,9 +15,10 @@ function ProductListing() {
             dispatch(showLoading());
             let res = await getAllBookDetailsAPI();//getAllBookDetails
             dispatch(hideLoading());
-            
             if(res.status === 200){
-                setBookData(res.data.payload);
+                let bookList = res.data.payload;
+                let shuffledList = shuffleArray(bookList)
+                setBookData(shuffledList);
             }
         }
         catch(e){

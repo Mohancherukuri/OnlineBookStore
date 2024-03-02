@@ -11,47 +11,26 @@ import { Toaster, toast } from 'react-hot-toast';
 import { processOrder } from '../../../utils/apicalls';
 
 import { useDispatch } from 'react-redux';
-import { showLoading,hideLoading } from '../../../Redux/Slices/spinnerSlice';
+import { showLoading, hideLoading } from '../../../Redux/Slices/spinnerSlice';
 
 function CartItemsContainer() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     let [showPaymentLayout, setShowPaymentLayout] = useState(false);
 
-    let { cartItems, userOrders, loginStatus, setUserOrders, setCartItems, emptyCart, currentUser } = useContext(userLoginContextObj);
+    let { cartItems, loginStatus, setCartItems, emptyCart, currentUser } = useContext(userLoginContextObj);
 
 
     const [totalAmout, setTotalAmount] = useState(0)
     //Popup States
     let [showPopupAndNavigate, setShowPopupAndNavigate] = useState(false)
     let [showPopup, setShowPopup] = useState(false);
+
     let [promptMsg, setPromptMsg] = useState('');
     let [promptHeading, setPromptHeading] = useState('')
     let [popupPath, setPopupPath] = useState('');
 
-    //Payment Form Data
-    let paymentDetails = {
-        fullName: '',
-        streetAddress: '',
-        city: '',
-        state: '',
-        zipCode: '',
-        cardNumber: '',
-        expiry: '',
-        cvc: ''
-    }
-
-    let [paymentDetailsData, setPaymentDetailsData] = useState(paymentDetails);
-
-    //Handle Paymentform data
-    const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setPaymentDetailsData({
-            ...paymentDetailsData,
-            [name]: value,
-        });
-    };
-
+    //Payment Form Dat
 
     useEffect(() => {
         //calculate total price of items in cart
@@ -60,7 +39,7 @@ function CartItemsContainer() {
             total = total + (item.price * item.qty);
         });
         setTotalAmount(total);
-        // console.log(paymentDetailsData);
+       
     }, [cartItems]);
 
     let handlePayment = () => {
@@ -77,27 +56,22 @@ function CartItemsContainer() {
 
     let handleClosePaymentLayout = () => {
         setShowPaymentLayout(false);
-        setPaymentDetailsData(paymentDetails);
+        
     }
 
-    let handlePaymentForm = async () => {
+    let processPayment = async (paymentDetailsData) => {
 
-        let orderDetails = paymentFormValidation(paymentDetailsData, cartItems);
-        
-        if (Object.keys(orderDetails).length !== 0) {
-            // No errors
+        try {
+             // No errors
             //Send all the data into the database
-            let updatedOrders = { ...orderDetails };
-            // console.log(orderDetails)
-            // updatedOrders.orderDetails.push(orderDetails);
-            // setUserOrders(updatedOrders);
+            let updatedOrders = { ...paymentDetailsData };
+
             let username = currentUser.username;
-            // console.log();
-            
+            let token = localStorage.getItem('token')
             dispatch(showLoading())
-            let res = await processOrder({ updatedOrders, username });
+            let res = await processOrder({ updatedOrders, username, token });
             dispatch(hideLoading());
-            
+
             if (res.status === 200) {
                 //Set user Cart to empty
                 setCartItems([]);
@@ -107,8 +81,8 @@ function CartItemsContainer() {
                 dispatch(showLoading())
                 await emptyCart();
                 dispatch(hideLoading());
-                
-                setPaymentDetailsData(paymentDetails);
+
+    
 
                 setShowPaymentLayout(false);
 
@@ -119,17 +93,30 @@ function CartItemsContainer() {
                 setShowPopupAndNavigate(true);
                 setPopupPath("/")
             }
-        }
-        else {
-            toast.error("Please check all of your Details");
+        } catch (error) {
+            navigate("/error")
         }
 
     }
 
     return (
         <div className='cart-items-container'>
-            {showPaymentLayout && <PaymentLayout handleClosePaymentLayout={handleClosePaymentLayout} handlePaymentForm={handlePaymentForm} handleInputChange={handleInputChange} paymentDetailsData={paymentDetailsData} />}
-            {showPopup && <Popup message={promptMsg} heading={promptHeading} showPopupAndNavigate={showPopupAndNavigate} setShowPopup={setShowPopup} path={popupPath} />}
+            {showPaymentLayout
+                &&
+                <PaymentLayout handleClosePaymentLayout={handleClosePaymentLayout} cartItems={cartItems} username = {currentUser.username} processPayment = {processPayment}
+                    // handlePaymentForm={handlePaymentForm}
+                />
+            }
+            {showPopup
+                &&
+                <Popup
+                    message={promptMsg}
+                    heading={promptHeading}
+                    showPopupAndNavigate={showPopupAndNavigate}
+                    setShowPopup={setShowPopup}
+                    path={popupPath}
+                />
+            }
             <Toaster />
             <div className='container'>
                 {

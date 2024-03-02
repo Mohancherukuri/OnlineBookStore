@@ -24,7 +24,7 @@ function AllProducts({ isAdmin }) {
       dispatch(showLoading());
       const res = await getAllBookDetailsAPI();
       dispatch(hideLoading());
-      // console.log(res);
+     
       setBookData(res.data.payload);
       
     } catch (error) {
@@ -33,9 +33,9 @@ function AllProducts({ isAdmin }) {
   };
 
   const handleUpdate = async (id) => {
-    console.log(id);
+  
     const bookData = booksData.filter((book) => book._id === id);
-    // console.log(bookData)
+  
     navigate('/update-books', { state: bookData });
   };
 
@@ -43,11 +43,11 @@ function AllProducts({ isAdmin }) {
     try {
 
       dispatch(showLoading());
-
       let dbRes = await deleteBookDataAPI(id);
       dispatch(hideLoading());
 
       if(dbRes.status === 200){
+        toast.success("Book Deleted");
         const updatedBookData = booksData.filter((book) => book._id !== id);
         setBookData(updatedBookData);      
       }

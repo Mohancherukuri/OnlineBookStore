@@ -4,7 +4,7 @@ function FormInputField({ label, type, className, placeholder, handleChange, lab
     return (
         <>
             <div className={`form-group ${divClass}`}>
-                <label className={`${lableClass} text-white`}>{label}</label>
+                <label className={`${lableClass} `}>{label}</label>
                 <div className={`input-container ${padding}`}>
                     <input type={type}
                         className={className}

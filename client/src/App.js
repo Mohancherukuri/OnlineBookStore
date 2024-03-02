@@ -41,7 +41,7 @@ function App() {
     //If Token Exists
     else {
       try {
-        console.log("Check for validity")
+    
       //check token for it's expired
       let tokenStatus = await axios.post("http://localhost:4000/user-api/check-session-validity", { token });
 

@@ -25,7 +25,7 @@ function PaymentForm({ handleClosePaymentLayout,handleInputChange, handlePayment
 
         <PaymentFormInput
           label="Card Number"
-          type="text"
+          type="number"
           name = "cardNumber"
           handleInputChange = {handleInputChange}
           value={paymentDetailsData.cardNumber}
@@ -46,7 +46,7 @@ function PaymentForm({ handleClosePaymentLayout,handleInputChange, handlePayment
 
         <PaymentFormInput
           label="CVC"
-          type="text"
+          type="number"
           name ="cvc"
           handleInputChange = {handleInputChange}
           value={paymentDetailsData.cvc}

@@ -4,7 +4,7 @@ import Footer from '../../Components/Footer/Footer'
 import './SearchPage.css'
 import axios from 'axios'
 import {Toaster,toast} from 'react-hot-toast'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { useDispatch, UseDispatch } from 'react-redux'
 import { getAllBookDetailsAPI } from '../../utils/apicalls'
 
@@ -14,6 +14,7 @@ import { showLoading,hideLoading } from '../../Redux/Slices/spinnerSlice'
 function SearchPage() {
     const dispatch = useDispatch();
     const location = useLocation();
+    const navigate = useNavigate();
     // let [bookData,setBookData] = useState([]);
     const [searchResult, setSearchResult] = useState([]);
     let getData = async () => {
@@ -23,13 +24,13 @@ function SearchPage() {
             dispatch(hideLoading());    
 
             let bookData = res.data.payload;
-            console.log(bookData);
+            
             let searchValue = [];
             searchValue = bookData.filter((data) => data.title.toLowerCase().includes(location.state.toLowerCase()));
-            console.log(searchValue)
+            
             setSearchResult(searchValue);
         } catch (error) {
-            console.log(error);
+            navigate("/error")
         }
     }
 

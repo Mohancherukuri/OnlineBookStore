@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from 'react'
 import HorizontalProductCard from '../../Components/HorizontalProductCard/HorizontalProductCard';
 import Navbar from '../../Components/Navbar/Navbar'
 import { userLoginContextObj } from '../../Context/userLoginContext'
-import axios from 'axios';
 import {useDispatch} from 'react-redux'
 import { showLoading,hideLoading } from '../../Redux/Slices/spinnerSlice';
 import { getPreviousOrders } from '../../utils/apicalls';
@@ -20,12 +19,14 @@ function OrdersPage() {
     const getData = async() =>{
         
         dispatch(showLoading());
-        let receivedData = await getPreviousOrders(currentUser.username)
+        let token = localStorage.getItem('token')
+        let receivedData = await getPreviousOrders(currentUser.username,token)
         dispatch(hideLoading());
 
         if(receivedData.status === 200){
             let orderData = []
             orderData = receivedData.data.payload;
+            orderData.reverse();
             setUserOrders(orderData);
         }
         
@@ -42,11 +43,7 @@ function OrdersPage() {
                 <>
                     <h1>Your Orders... </h1>
                 </>
-                {/* {
-                    userOrders.map((item)=>{
-                        console.log(item);
-                    })
-                } */}
+    
                 {
                     userOrders.map((item) => {
                         return (

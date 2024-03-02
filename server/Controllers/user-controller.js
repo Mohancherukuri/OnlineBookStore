@@ -10,7 +10,7 @@ const userLogin = async (req, res) => {
     try {
         //Get data
     let userCred = req.body;
-    // console.log(userCred);
+    
     const user = await userModel.findOne({ username: userCred.username });
     //If user Exists
     if (user) {
@@ -35,7 +35,7 @@ const userLogin = async (req, res) => {
         res.status(200).send({ message: "Wrong UserName" });
     }
     } catch (error) {
-        console.log("Error in UserLogin");
+        
         res.status(500).send({message : "Internal server Error"})
     }
 
@@ -66,7 +66,7 @@ const userRegistration = async (req, res) => {
         res.status(200).send({ message: "User Created", user: dbRes });
     }
     catch (error) {
-        console.log("Error", error);
+        
         res.status(500).send({message : "Internal Server Error"});
     }
 }
@@ -75,7 +75,7 @@ const userRegistration = async (req, res) => {
 const updateUserCart = async (req, res) => {
     try {
         let user = req.body.user;
-        console.log(req.body.user)
+        
         //Update user Cart data;
 
 
@@ -85,7 +85,7 @@ const updateUserCart = async (req, res) => {
         
         res.status(200).send({ message: "Cart Updated" });
     } catch (error) {
-        console.log("Error in updateUserCart");
+        
         res.status(500).send({ message: "internal server error" });
     }
 }
@@ -98,7 +98,6 @@ const checkSession = async (req, res) => {
         let dbRes = await userModel.findOne({ username: username });
         res.status(200).send({message:"Login Successful",payload : dbRes});
     } catch (error) {
-        console.log("Error in checkSession");
 
         res.status(500).send({message : "Internal Server Error Please try again"});
     }

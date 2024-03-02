@@ -40,7 +40,7 @@ function UserLoginStore({ children }) {
                 }
             }
             else {
-                console.log(dbRes.data.message);
+                
                 return dbRes.data.message;
             }
         } catch (error) {
@@ -51,7 +51,7 @@ function UserLoginStore({ children }) {
     //Handle user Login when token is valid
     let handleUserTokenLogin = async (userObj) => {
         setLoginStatus(true);
-        // console.log(userObj);
+        
         setCurrentUser(userObj);
         setIsAdmin(userObj.isAdmin);
         setCartItems(userObj.cart);
@@ -81,7 +81,7 @@ function UserLoginStore({ children }) {
 
         //If book is in Cart add quantity
         const bookInCart = isBookInCart(bookDetails, cartItems);
-        // console.log(bookInCart);
+        
         //Book is in cart
         if (bookInCart !== undefined) {
 
@@ -93,7 +93,12 @@ function UserLoginStore({ children }) {
                 let currentUserObj = { ...currentUser };
                 currentUserObj.cart = updatedCart;
                 setCurrentUser(currentUserObj)
-                await updateUserCartAPI({ user: currentUserObj, token: localStorage.getItem("token") });
+                try {
+                    await updateUserCartAPI({ user: currentUserObj, token: localStorage.getItem("token") });
+                    return "Book Added to Cart"
+                } catch (error) {
+                    return "Something went wrong try agian later."
+                }
             }
 
             setCartItems(updatedCart)
@@ -109,8 +114,12 @@ function UserLoginStore({ children }) {
 
                 setCurrentUser(currentUserObj);
 
-                // console.log(currentUserObj);
-                await updateUserCartAPI({ user: currentUserObj, token: localStorage.getItem("token") });
+                try {
+                    await updateUserCartAPI({ user: currentUserObj, token: localStorage.getItem("token") });
+                    return "Book Added to Cart"
+                } catch (error) {
+                    return "Something went wrong try agian later."
+                }
             }
         }
 
@@ -118,16 +127,15 @@ function UserLoginStore({ children }) {
 
     //Remove items from cart
     let removeFromCart = async (book) => {
-        console.log(book);
-        console.log("Remove from Cart");
+        
         let updatedCart = cartItems.filter((item) => item._id !== book._id);
         setCartItems(updatedCart);
-        console.log(updatedCart)
+       
         if (loginStatus) {
-            console.log("Here1111")
+            
             let currentUserObj = { ...currentUser }
             currentUserObj.cart = updatedCart;
-            console.log(currentUserObj)
+            
             setCurrentUser(currentUserObj)
             await updateUserCartAPI({ user: currentUserObj, token: localStorage.getItem("token") })
         }

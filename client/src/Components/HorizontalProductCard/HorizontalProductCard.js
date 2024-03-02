@@ -28,7 +28,7 @@ function HorizontalProductCard({ book, isCart,isProductCard }) {
                 <h2>{book.title}</h2>
                 <p>{book.author}</p>
                 {isCart && <Quantity book={book} qty={book.qty}/>}
-                <h3 className='cart-item-price'>&#8377;{book.price}</h3>
+                <h3 className='cart-item-price'>&#8377;{book.price*book.qty}</h3>
                 {
                     isCart &&
                         <button className='delete-button mt-3' onClick={handleRemove}>

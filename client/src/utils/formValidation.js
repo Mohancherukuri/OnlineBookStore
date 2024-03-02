@@ -29,54 +29,66 @@ export const signUpFormValidation = ({ username, email, password }) => {
     return null
 }
 
-export const paymentFormValidation = (paymentDetails,cartItems) =>{
-    
-    let address = {
-        fullName: paymentDetails.fullName,
-        streetAddress: paymentDetails.streetAddress,
-        city: paymentDetails.city,
-        state: paymentDetails.state,
-        zipCode: paymentDetails.zipCode,
+
+export const addressFormValidation = (addressDetails) => {
+
+    // Validating full name
+    if (addressDetails.fullName === '') {
+        return "Please enter your Full Name";
     }
-    
-    let cardDetails = {
-        cardNumber: paymentDetails.cardNumber,
-        expiry: paymentDetails.expiry,
-        cvc: paymentDetails.cvc
+    else if (addressDetails.fullName.length < 3) {
+        return "Name should be more than 3 characters";
     }
 
-    //Validate Address 
-    if(address.streetAddress.length === 0){
-        return {}
-    }
-    if(address.city.length === 0){
-        return {}
-    }
-    if(address.state.length === 0){
-        return {}
-    }
-    if(address.zipCode.length !== 6 ){
-        return {}
+    // Validating street Address
+    if (addressDetails.streetAddress === '') {
+        return 'Please enter your Address';
     }
 
-    //Validate Card details
-    if(cardDetails.cardNumber.length !== 12 ){
-        return {}
-    }
-    else if(cardDetails.cvc.length !== 3){
-        return {}
+    // Validating City
+    if (addressDetails.city === '') {
+        return 'Please enter the name of the city';
     }
 
-    const orderDate = new Date();
-
-    let userObj = {
-        address : address,
-        cardDetails : cardDetails,
-        orderItems : cartItems,
-        date : orderDate.toDateString()
+    // Validating State
+    if (addressDetails.state === '') {
+        return "Please enter the name of the state";
     }
-    return userObj
 
+    // Validate Zip Code
+    // Validate Zip Code
+    if (addressDetails.zipCode === '') {
+        return "Please enter your zip code";
+    } else if (!/^\d+$/.test(addressDetails.zipCode)) {
+        return "Zip code should only contain digits";
+    } else if (addressDetails.zipCode.length !== 6) {
+        return "Please enter a valid 6-digit zip code";
+    }
+
+    return null;
+}
+
+export const paymentFormValidation = (paymentDetails) => {
+    if(paymentDetails.cardNumber === ''){
+        return "Card Number is required"
+    } 
+    else if(paymentDetails.cardNumber.length !== 12){
+        return "Please enter a valid Card Number"
+    }
+
+    if(paymentDetails.cvc === ''){
+        return "CVC is required";
+    }
+    else if(paymentDetails.cvc.length !== 3){
+        return "Please enter a valid cvc";
+    }
+
+    if(paymentDetails.expiry === ''){
+        return "Expiry is required";
+    }
+
+    return null
+  
 }
 
 

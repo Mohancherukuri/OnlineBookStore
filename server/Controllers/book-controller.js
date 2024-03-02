@@ -15,15 +15,15 @@ const addBookData = async (req, res) => {
         // Add the image link to the book Data
 
         // bookData.image = req.file.path;
-        console.log(req.file.path);
+        
         let result = await cloudinary.uploader.upload(req.file.path);
-        console.log("Image updated")
+        
         let imageUrl = result.url;
         //Update the database
         bookData.image = imageUrl
 
         const dbRes = await bookModel.create(bookData);
-        console.log("Book Created")
+        
         fs.access(req.file.path, fs.constants.F_OK, (err) => {
             if (err) {
                 console.error('File does not exist:', err);
@@ -36,14 +36,12 @@ const addBookData = async (req, res) => {
                     // console.error('Error deleting file:', err);
                     return;
                 }
-                console.log('File deleted successfully');
             });
         });
 
         res.status(200).send({ message: "Book Created" })
     }
     catch (error) {
-        console.log(error)
         res.status(500).send({ message: "Server Error" })
     }
 }
@@ -55,7 +53,7 @@ const getBooks = async (req, res) => {
         const books = await bookModel.find();
         res.status(200).send({ message: "Data Received", payload: books })
     } catch (error) {
-        // console.log(error);
+        
         res.status(500).send({ message: "Internal Server Error" });
     }
 }
@@ -86,8 +84,7 @@ function extractPublicId(imageUrl) {
 
 const updateBookData = async (req, res) => {
     try {
-        // console.log(req.body._id);
-        // console.log("Here")
+       
         let bookObj = {
             title: req.body.title,
             author: req.body.author,
@@ -96,7 +93,7 @@ const updateBookData = async (req, res) => {
             price: parseInt(req.body.price)
         }
 
-        console.log(req.file);
+    
         // let newImagePath = req.file;
         if (req.file === undefined) {
             
@@ -111,11 +108,11 @@ const updateBookData = async (req, res) => {
             //Delete old image
             let publicId = extractPublicId(oldImage);
             let res1 = await cloudinary.uploader.destroy(publicId);
-            // console.log(res1);
+         
 
             //Upload new Image
             let res2 = await cloudinary.uploader.upload(newImagePath);
-            // console.log(res2);
+          
             bookObj.image = res2.url
             //Create book Obj
 
@@ -125,7 +122,7 @@ const updateBookData = async (req, res) => {
 
     }
     catch (error) {
-        console.log(error);
+      
         res.status(500).send({message : "Internal Server Error"});
     }
 }
@@ -145,7 +142,7 @@ const deleteBookData = async (req, res) => {
 
     }
     catch (e) {
-        console.log(e);
+        
         res.status(500).send({message : "Internal Server Error"});
     }
 }

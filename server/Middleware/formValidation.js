@@ -1,6 +1,5 @@
 function formValidation(req, res, next) {
     try {
-        console.log(req.body)
         let { username, email, password } = req.body;
         let validationErrors = [];
 
@@ -35,7 +34,7 @@ function formValidation(req, res, next) {
 
         next();
     } catch (e) {
-        console.log("Error", e);
+
         res.status(500).send("Internal Server Error");
     }
 }
