@@ -68,6 +68,7 @@ function UserLoginStore({ children }) {
 
 
     let addToCart = async (bookData) => {
+        console.log("111")
         let currentCartItems = [...cartItems];
         let bookDetails = {
             _id: bookData._id,
@@ -81,15 +82,17 @@ function UserLoginStore({ children }) {
 
         //If book is in Cart add quantity
         const bookInCart = isBookInCart(bookDetails, cartItems);
-        
+        console.log(bookInCart);
         //Book is in cart
         if (bookInCart !== undefined) {
-
             bookInCart.qty += 1;
             let updatedCart = cartItems.filter((item) => item._id !== bookInCart._id);
-
+            console.log("Here11232132123")
             updatedCart = updatedCart.concat(bookInCart);
+            console.log(updatedCart)
+            setCartItems(updatedCart)
             if (loginStatus) {
+                console.log("In login")
                 let currentUserObj = { ...currentUser };
                 currentUserObj.cart = updatedCart;
                 setCurrentUser(currentUserObj)
@@ -97,14 +100,15 @@ function UserLoginStore({ children }) {
                     await updateUserCartAPI({ user: currentUserObj, token: localStorage.getItem("token") });
                     return "Book Added to Cart"
                 } catch (error) {
+                    console.log(error);
                     return "Something went wrong try agian later."
                 }
             }
-
-            setCartItems(updatedCart)
+            return "Book Added to Cart"
+            
         }
         else {
-
+            console.log("Here111")
             currentCartItems.push(bookDetails);
             setCartItems(currentCartItems);
             if (loginStatus) {
@@ -118,9 +122,11 @@ function UserLoginStore({ children }) {
                     await updateUserCartAPI({ user: currentUserObj, token: localStorage.getItem("token") });
                     return "Book Added to Cart"
                 } catch (error) {
+                    console.log(error)
                     return "Something went wrong try agian later."
                 }
             }
+            return "Book Added to Cart"
         }
 
     }

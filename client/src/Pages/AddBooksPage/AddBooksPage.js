@@ -1,13 +1,13 @@
 import React from 'react'
 import Navbar from '../../Components/Navbar/Navbar'
-import { checkBookExistsAPI, addBookDetailsAPI } from '../../utils/apicalls'
+import { addBookDetailsAPI } from '../../utils/apicalls'
 import BooksFormLayout from '../../Components/Layout/BooksFormLayout/BooksFormLayout'
 import { Toaster, toast } from 'react-hot-toast';
-import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from "react-redux"
+import { bookFormValidation } from '../../utils/formValidation';
 
-import { showLoading,hideLoading } from '../../Redux/Slices/spinnerSlice';
+import { showLoading, hideLoading } from '../../Redux/Slices/spinnerSlice';
 
 function AdminAddBooksPage() {
 
@@ -16,31 +16,40 @@ function AdminAddBooksPage() {
 
   let handleAddBook = async (bookDetails) => {
 
-    const formData = new FormData();
-  
-    formData.append("title", bookDetails.title);
-    formData.append("author", bookDetails.author);
-    formData.append("description", bookDetails.description);
-    formData.append("genere", bookDetails.genere);
-    formData.append("price", bookDetails.price);
-    formData.append("image",bookDetails.image)
+    let error = bookFormValidation(bookDetails);
 
-    try{
-      
-      dispatch(showLoading());
-      const res = await addBookDetailsAPI(formData);
-      dispatch(hideLoading());
+    if (error === null) {
+      const formData = new FormData();
+      console.log(bookDetails);
+      formData.append("title", bookDetails.title);
+      formData.append("author", bookDetails.author);
+      formData.append("description", bookDetails.description);
+      formData.append("genere", bookDetails.genere);
+      formData.append("price", bookDetails.price);
+      formData.append("image", bookDetails.image)
 
-      if(res.status === 200){
-        toast.success("Book Data Added");
-        setTimeout(() => {
-          navigate("/admin");
-        }, 500);
+      try {
+
+        dispatch(showLoading());
+        let token = localStorage.getItem("token")
+        const res = await addBookDetailsAPI(formData);
+        dispatch(hideLoading());
+
+        if (res.status === 200) {
+          toast.success("Book Data Added");
+          setTimeout(() => {
+            navigate("/admin");
+          }, 500);
+        }
+      }
+      catch (e) {
+        dispatch(hideLoading());
+        navigate("/error");
       }
     }
-    catch(e){
-  
-      navigate("/error");
+    else{
+      toast.error(error);
+      return false;
     }
 
   }
@@ -48,6 +57,7 @@ function AdminAddBooksPage() {
 
   return (
     <div>
+      <Toaster/>
       <Navbar theme={true} />
       <div>
         <Toaster />

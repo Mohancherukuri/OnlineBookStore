@@ -63,7 +63,8 @@ function DetailsSection() {
     const handleAddToCart = async () => {
         dispatch(showLoading());
         let res = await addToCart(bookData);
-        dispatch(hideLoading());        
+        dispatch(hideLoading());    
+        console.log(res);    
         if(res === "Book Added to Cart"){
             toast.success("Book Added to Cart")
         }

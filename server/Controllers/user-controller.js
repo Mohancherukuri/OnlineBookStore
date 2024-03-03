@@ -75,11 +75,8 @@ const userRegistration = async (req, res) => {
 const updateUserCart = async (req, res) => {
     try {
         let user = req.body.user;
-        
         //Update user Cart data;
 
-
-        
         let dbRes = await userModel.updateOne({ _id: user._id }
             , { $set: { cart: user.cart } });
         

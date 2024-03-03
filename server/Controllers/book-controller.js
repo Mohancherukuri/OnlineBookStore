@@ -13,8 +13,6 @@ const addBookData = async (req, res) => {
         const bookData = req.body;
         
         // Add the image link to the book Data
-
-        // bookData.image = req.file.path;
         
         let result = await cloudinary.uploader.upload(req.file.path);
         
@@ -60,7 +58,6 @@ const getBooks = async (req, res) => {
 
 const getBookDetails = async (req, res) => {
     try {
-
         const parsedUrl = url.parse(req.url, true);
         const queryParameters = parsedUrl.query;
 

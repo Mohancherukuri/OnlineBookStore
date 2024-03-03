@@ -3,13 +3,13 @@ import BlackButton from '../../Buttons/BlackButton'
 import FormInputField from '../../FormInputField/FormInputField'
 import { useLocation } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { showLoading,hideLoading } from '../../../Redux/Slices/spinnerSlice'
+import { showLoading, hideLoading } from '../../../Redux/Slices/spinnerSlice'
 function BooksFormLayout({ onSubmit, heading, isEdit }) {
 
     const location = useLocation();
-  
+
     const dispatch = useDispatch();
-    
+
     //Form States
     let [title, setTitle] = useState('')
     let [author, setAuthor] = useState('')
@@ -17,7 +17,7 @@ function BooksFormLayout({ onSubmit, heading, isEdit }) {
     let [image, setImage] = useState(null)
     let [price, setPrice] = useState()
     let [genere, setgenere] = useState('')
-    let [oldImage ,setOldImage] = useState('');
+    let [oldImage, setOldImage] = useState('');
 
     const handleImageChange = (e) => {
         const file = e.target.files[0];
@@ -29,20 +29,22 @@ function BooksFormLayout({ onSubmit, heading, isEdit }) {
         if (isEdit) {
             let _id = location.state[0]._id;
             dispatch(showLoading());
-            await onSubmit({_id:_id, title, author, description, image, price, genere ,oldImage});
+            await onSubmit({ _id: _id, title, author, description, image, price, genere, oldImage });
             dispatch(hideLoading());
         }
         else {
             dispatch(showLoading());
-            await onSubmit({ title, author, description, image, price, genere });
+            let res = await onSubmit({ title, author, description, image, price, genere });
             dispatch(hideLoading());
-            setAuthor('');
-            setTitle('');
-            setDescription('');
-            setImage(null);
-            setPrice('');
-            setgenere('');
-            // alert("Book Data Added");
+            if (res) {
+                setAuthor('');
+                setTitle('');
+                setDescription('');
+                setImage(null);
+                setPrice('');
+                setgenere('');
+            }
+
         }
     }
 
@@ -50,7 +52,7 @@ function BooksFormLayout({ onSubmit, heading, isEdit }) {
 
         //If you get values for update fill the values in the input fields
         if (location.state) {
-            
+
             const { author, title, description, image, price, genere } = location.state[0];
             setAuthor(author || '');
             setTitle(title || '');
@@ -100,8 +102,8 @@ function BooksFormLayout({ onSubmit, heading, isEdit }) {
                     <textarea rows="4" cols="50" className='form-control' value={description} placeholder="Enter Description of the Book" onChange={(e) => { setDescription(e.target.value) }} />
                 </div>
 
-                <input type="file" onChange={handleImageChange}/>
-
+                {/* <input type="file" onChange={handleImageChange} /> */}
+                <input class="form-control" type="file" id="formFile" onChange={handleImageChange}/>
                 <FormInputField
                     label='Price'
                     type='number'

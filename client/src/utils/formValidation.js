@@ -91,4 +91,27 @@ export const paymentFormValidation = (paymentDetails) => {
   
 }
 
+export const bookFormValidation = (bookDetails) =>{
+    if(bookDetails.title === ''){
+        return "Title is required";
+    }
+    if(bookDetails.author === ''){
+        return "Author Name is required";
+    }
+    if(bookDetails.genere === ''){
+        return 'Genere is required';
+    }
+    if(bookDetails.description < 10){
+        return 'Description should be more than 10 characters';
+    }
+    console.log(bookDetails.image)
+    if(bookDetails.image === null ){
+        return 'You need to upload a image';
+    }
+    if(bookDetails.price === ''){
+        return 'Please enter the book price';
+    }
+    
+    return null;
+}
 

@@ -14,6 +14,7 @@ export const signUpAPI = async (userObj) => {
 
 //Update user cart data
 export const updateUserCartAPI = async (currentUser) => {
+    console.log("Here")
     return await axios.put(`http://localhost:4000/user-api/update-cart`, currentUser);
 }
 
@@ -35,7 +36,7 @@ export const getBookDetailsAPI = async (id) => {
 
 
 //Add Book into the database
-export const addBookDetailsAPI = async (bookDetails) => {
+export const addBookDetailsAPI = async (bookDetails,token) => {
     return await axios.post(`http://localhost:4000/book-api/add-books`,bookDetails);
 }
 
