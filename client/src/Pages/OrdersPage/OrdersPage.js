@@ -11,15 +11,15 @@ function OrdersPage() {
     
     const dispatch = useDispatch();
     
-    // let { userOrders } = useContext(userLoginContextObj);
     let { currentUser } = useContext(userLoginContextObj);
 
     let [userOrders,setUserOrders] = useState([]);
 
     const getData = async() =>{
-        
+       
         dispatch(showLoading());
-        let token = localStorage.getItem('token')
+        let token = localStorage.getItem('token');
+        console.log(currentUser)
         let receivedData = await getPreviousOrders(currentUser.username,token)
         dispatch(hideLoading());
 
@@ -41,7 +41,7 @@ function OrdersPage() {
             <Navbar theme={true} />
             <div className='container mt-5'>
                 <>
-                    <h1>Your Orders... </h1>
+                    <h1>Your Previous Orders... </h1>
                 </>
     
                 {
@@ -54,7 +54,7 @@ function OrdersPage() {
                                 <div style={{ width: "90%" }}>
                                     {
                                         item.books.map((item2) => {
-                                            return (<HorizontalProductCard book={item2} isCart={false} isProductCard={false} key={item2.id} />)
+                                            return (<HorizontalProductCard book={item2} isCart={false} isProductCard={false} isOrderCard={true} key={item2.id} />)
                                         })
                                     }
                                 </div>

@@ -55,6 +55,7 @@ function UserLoginStore({ children }) {
         setCurrentUser(userObj);
         setIsAdmin(userObj.isAdmin);
         setCartItems(userObj.cart);
+        
     }
 
     //Handle the logout event

@@ -2,11 +2,14 @@ import React from 'react'
 
 function ErrorPage() {
     return (
-        <div className='container '>
-            <div className="text-center mt-5">
-                {/* <h1 className="display-1">404</h1> */}
-                <h3 className="lead">Oops! Something went wrong in the Server.</h3>
-                <p className="mb-4">Please try again later</p>
+        <div className='container mt-5'>
+            <div className='row justify-content-center'>
+                <div className='col-md-8'>
+                    <div className='alert alert-danger text-center'>
+                        Oops something went Wrong!!!<br/>
+                        Please Try again later
+                    </div>
+                </div>
             </div>
         </div>
     )

@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import BlackButton from '../../Buttons/BlackButton'
 import FormInputField from '../../FormInputField/FormInputField'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { showLoading, hideLoading } from '../../../Redux/Slices/spinnerSlice'
 function BooksFormLayout({ onSubmit, heading, isEdit }) {
-
+    const navigate = useNavigate();
     const location = useLocation();
 
     const dispatch = useDispatch();
@@ -27,6 +27,7 @@ function BooksFormLayout({ onSubmit, heading, isEdit }) {
     let handleSubmit = async (e) => {
         e.preventDefault();
         if (isEdit) {
+            
             let _id = location.state[0]._id;
             dispatch(showLoading());
             await onSubmit({ _id: _id, title, author, description, image, price, genere, oldImage });
@@ -51,6 +52,7 @@ function BooksFormLayout({ onSubmit, heading, isEdit }) {
     useEffect(() => {
 
         //If you get values for update fill the values in the input fields
+        console.log(location.state);
         if (location.state) {
 
             const { author, title, description, image, price, genere } = location.state[0];
@@ -62,6 +64,9 @@ function BooksFormLayout({ onSubmit, heading, isEdit }) {
             setgenere(genere || '');
             setOldImage(image || '');
 
+        }
+        else{
+            navigate("/add-books")
         }
     }, [location.state]);
 

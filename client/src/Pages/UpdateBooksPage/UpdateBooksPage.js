@@ -1,11 +1,11 @@
 import React from 'react'
 import Navbar from '../../Components/Navbar/Navbar'
 import { updateBookDetailsAPI } from '../../utils/apicalls'
-import { useLocation, useNavigate } from 'react-router-dom'
+import {  useNavigate } from 'react-router-dom'
 import BooksFormLayout from '../../Components/Layout/BooksFormLayout/BooksFormLayout'
 import { Toaster, toast } from 'react-hot-toast'
 import { bookFormValidation } from '../../utils/formValidation'
-import { useDispatch, UseDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { showLoading, hideLoading } from '../../Redux/Slices/spinnerSlice'
 
 import axios from 'axios'
@@ -14,7 +14,6 @@ function UpdateBookpage() {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const location = useLocation();
     // const [isUpdate, setIsUpdate] = useState(false)
 
     let handleUpdate = async (data) => {

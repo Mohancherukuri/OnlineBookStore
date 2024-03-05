@@ -1,6 +1,6 @@
 // Login.jsx
 //Import required Modules
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useDispatch } from "react-redux"
 import { Toaster, toast } from 'react-hot-toast';
 
@@ -9,7 +9,7 @@ import './Login.css';
 
 //Import required Components
 import Navbar from '../../Components/Navbar/Navbar';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import BlackButton from '../../Components/Buttons/BlackButton';
 import FormInputField from '../../Components/FormInputField/FormInputField';
 import LoginImage from './../../Components/LoginImage/LoginImage';
@@ -87,16 +87,11 @@ function Login() {
         }
     };
 
-
-
     return (
         <div>
             <Navbar theme={true} />
-
             <Toaster />
-            
             <div className='signup-container'>
-
                 <LoginImage />
                 <div className='signup-content-container'>
                     <div className='container'>

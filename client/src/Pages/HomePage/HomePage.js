@@ -3,6 +3,7 @@ import ProductListing from '../../Components/Layout/ProductListing/ProductListin
 import ShowCase from '../../Components/Layout/Showcase/ShowCase'
 import Footer from './../../Components/Footer/Footer';
 function HomePage() {
+
     return (
         <div>
             <ShowCase/>

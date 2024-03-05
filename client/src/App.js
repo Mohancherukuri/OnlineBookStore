@@ -17,20 +17,19 @@ import UpdateBookpage from './Pages/UpdateBooksPage/UpdateBooksPage';
 import NotFoundPage from './Pages/NotFoundPage/NotFoundPage';
 import OrdersPage from './Pages/OrdersPage/OrdersPage';
 import ErrorPage from './Pages/ErrorPage/ErrorPage';
-
 import { useNavigate } from 'react-router-dom';
-import env from 'react-dotenv'
 
+import { validateToken } from './utils/apicalls';
 
 import axios from 'axios';
 import { useSelector } from 'react-redux';
+import AdminProtectedRoute from './Components/ProtectedRoutes/AdminProtectedRoute';
+import UserProtectedRoute from './Components/ProtectedRoutes/UserProtectedRoute';
 
 function App() {
   const { loading } = useSelector(state => state.spinner);
   let { loginStatus, isAdmin, handleUserTokenLogin } = useContext(userLoginContextObj);
   const navigate = useNavigate();
-
- 
 
   let checkTokenSession = async () => {
     let token = localStorage.getItem("token");
@@ -52,9 +51,6 @@ function App() {
       //Else perform a login with all the received data;
       else {
         handleUserTokenLogin(tokenStatus.data.payload)
-        if (tokenStatus.data.payload.isAdmin) {
-          navigate("/admin");
-        }
       }
       } catch (error) {
           navigate("/error");
@@ -90,19 +86,26 @@ function App() {
         <Route path="/search" element={<SearchPage />} />
         <Route path="/book-details/:id" element={<DetailsPage />} />
         <Route path="/cart" element={<CartPage />} />
-        {
+        {/* {
           loginStatus ? <Route path="/order-details" element={<OrdersPage />} /> : <Route path="/order-details" element={<Navigate to="/login" />} />
-        }
+        } */}
+        <Route path="/order-details" element={<UserProtectedRoute><OrdersPage /></UserProtectedRoute>} />
 
-        {
+        {/* {
           isAdmin ? <Route path="/admin" element={<AdminBooksPage />} /> : <Route path="/admin" element={<Navigate to="/login" />}></Route>
-        }
-        {
+        } */}
+        <Route path="/admin" element={<AdminProtectedRoute><AdminBooksPage /></AdminProtectedRoute>} />
+
+        {/* {
           isAdmin ? <Route path="/add-books" element={<AdminAddBooksPage />} /> : <Route path="/add-books" element={<Navigate to="/login" />}></Route>
-        }
-        {
+        } */}
+        <Route path="/add-books" element={<AdminProtectedRoute><AdminAddBooksPage /></AdminProtectedRoute>} />
+
+        {/* {
           isAdmin ? <Route path="/update-books" element={<UpdateBookpage />} /> : <Route path="/update-books" element={<Navigate to="/login" />}></Route>
-        }
+        } */}
+        <Route path="/update-books" element={<AdminProtectedRoute><UpdateBookpage /></AdminProtectedRoute>} />
+
         <Route path="*" element={<NotFoundPage />} />
         <Route path = "/error" element ={<ErrorPage/>}/>
       </Routes>

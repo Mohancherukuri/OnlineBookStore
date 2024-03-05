@@ -33,6 +33,7 @@ function DetailsSection() {
         try {
             dispatch(showLoading());
             let res = await getBookDetailsAPI(id);
+            console.log(res);
             dispatch(hideLoading());
          
           
@@ -45,14 +46,11 @@ function DetailsSection() {
         }
         catch (e) {
             
-            if(e.response.status === 500){
+            
                 dispatch(hideLoading())
                 navigate("*");
-            }
-            else{
-                dispatch(hideLoading())
-                navigate("/error");
-            }
+            
+            
         }
     }
     useEffect(() => {

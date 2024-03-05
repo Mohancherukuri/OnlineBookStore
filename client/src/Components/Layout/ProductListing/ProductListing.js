@@ -22,6 +22,7 @@ function ProductListing() {
             }
         }
         catch(e){
+            dispatch(hideLoading());
             navigate("/error");
         }
     }

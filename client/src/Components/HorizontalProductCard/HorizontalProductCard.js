@@ -8,7 +8,7 @@ import Quantity from '../Quantity/Quantity';
 import { useDispatch } from 'react-redux';
 import { showLoading,hideLoading } from '../../Redux/Slices/spinnerSlice';
 
-function HorizontalProductCard({ book, isCart,isProductCard }) {
+function HorizontalProductCard({ book, isCart,isProductCard,isOrderCard }) {
 
     const dispatch = useDispatch();
 
@@ -27,9 +27,10 @@ function HorizontalProductCard({ book, isCart,isProductCard }) {
             <div className='cart-item-content-container'>
                 <h2>{book.title}</h2>
                 <p>{book.author}</p>
+                <h3>{isOrderCard && <>Qty : {book.qty}</>}</h3>
                 {isCart && <Quantity book={book} qty={book.qty}/>}
                 {
-                    isCart && <h3 className='cart-item-price'>&#8377;{book.price*book.qty}</h3>
+                    (isCart || isOrderCard) && <h3 className='cart-item-price'>&#8377;{book.price*book.qty}</h3>
                 }
                 {
                     isProductCard && <h3 className='cart-item-price'>&#8377;{book.price}</h3>

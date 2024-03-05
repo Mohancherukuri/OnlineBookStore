@@ -1,7 +1,7 @@
-import React from 'react'
+import React,{useEffect} from 'react'
 import Navbar from '../../Components/Navbar/Navbar'
 import BooksLayout from '../../Components/Layout/BooksLayout/BooksLayout'
-
+import {useLocation} from 'react-router-dom'
 function AdminBooksPage() {
 
     return (
