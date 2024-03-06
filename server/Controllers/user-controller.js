@@ -17,7 +17,7 @@ const userLogin = async (req, res) => {
         //Compare the password
         if (bcryptjs.compareSync(userCred.password, user.password)) {
             //Create a jwt Token
-            const token = jwt.sign({ username: user.username }, process.env.TOKEN_SECRET_KEY, { expiresIn: "2d" })
+            const token = jwt.sign({ username: user.username,isAdmin: user.isAdmin }, process.env.TOKEN_SECRET_KEY, { expiresIn: "2d" })
 
             //Check if user Added items to cart before loggin in.
             if (userCred.cart.length !== 0) {

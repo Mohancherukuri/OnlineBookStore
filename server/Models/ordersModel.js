@@ -1,7 +1,10 @@
 const mongoose = require('mongoose');
 
 const ordersSchema = new mongoose.Schema({
-    username: String,
+    username: {
+        type: String,
+        required: [true, 'Name is required']
+    },
     orderDetails: []
 })
 
