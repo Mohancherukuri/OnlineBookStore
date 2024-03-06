@@ -25,6 +25,8 @@ import axios from 'axios';
 import { useSelector } from 'react-redux';
 import AdminProtectedRoute from './Components/ProtectedRoutes/AdminProtectedRoute';
 import UserProtectedRoute from './Components/ProtectedRoutes/UserProtectedRoute';
+import PublicProtected from './Components/ProtectedRoutes/PublicProtected';
+import LoginProtected from './Components/ProtectedRoutes/LoginProtected';
 
 function App() {
   const { loading } = useSelector(state => state.spinner);
@@ -78,32 +80,20 @@ function App() {
         )
       }
       <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/books" element={<BooksPage />} />
-        <Route path="/login" element={<Login />} />
-        
-        <Route path="/signup" element={<SignUp />} />
-        <Route path="/search" element={<SearchPage />} />
+        <Route path="/" element={<PublicProtected><HomePage/></PublicProtected>} />
+        <Route path="/books" element={<PublicProtected><BooksPage /></PublicProtected>} />
+
+        <Route path="/login" element={<LoginProtected><Login /></LoginProtected>} />
+        <Route path="/signup" element={<LoginProtected><SignUp /></LoginProtected>} />
+
+        <Route path="/search" element={<PublicProtected><SearchPage /></PublicProtected>} />
         <Route path="/book-details/:id" element={<DetailsPage />} />
-        <Route path="/cart" element={<CartPage />} />
-        {/* {
-          loginStatus ? <Route path="/order-details" element={<OrdersPage />} /> : <Route path="/order-details" element={<Navigate to="/login" />} />
-        } */}
+        <Route path="/cart" element={<PublicProtected><CartPage /></PublicProtected>} />
+       
         <Route path="/order-details" element={<UserProtectedRoute><OrdersPage /></UserProtectedRoute>} />
 
-        {/* {
-          isAdmin ? <Route path="/admin" element={<AdminBooksPage />} /> : <Route path="/admin" element={<Navigate to="/login" />}></Route>
-        } */}
         <Route path="/admin" element={<AdminProtectedRoute><AdminBooksPage /></AdminProtectedRoute>} />
-
-        {/* {
-          isAdmin ? <Route path="/add-books" element={<AdminAddBooksPage />} /> : <Route path="/add-books" element={<Navigate to="/login" />}></Route>
-        } */}
         <Route path="/add-books" element={<AdminProtectedRoute><AdminAddBooksPage /></AdminProtectedRoute>} />
-
-        {/* {
-          isAdmin ? <Route path="/update-books" element={<UpdateBookpage />} /> : <Route path="/update-books" element={<Navigate to="/login" />}></Route>
-        } */}
         <Route path="/update-books" element={<AdminProtectedRoute><UpdateBookpage /></AdminProtectedRoute>} />
 
         <Route path="*" element={<NotFoundPage />} />

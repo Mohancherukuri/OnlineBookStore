@@ -7,7 +7,7 @@ import { Toaster, toast } from 'react-hot-toast'
 import { bookFormValidation } from '../../utils/formValidation'
 import { useDispatch } from 'react-redux'
 import { showLoading, hideLoading } from '../../Redux/Slices/spinnerSlice'
-
+import './UpdateBooksPage.css'
 import axios from 'axios'
 function UpdateBookpage() {
 
@@ -65,7 +65,7 @@ function UpdateBookpage() {
             <Toaster />
             <div>
                 <div className='bg-dark d-flex justify-content-center align-items-center' style={{ minHeight: "94vh" }}>
-                    <div className='container p-4 ' style={{ marginTop: "-90px" }}>
+                    <div className='container p-4 text-white books-form' style={{ marginTop: "-90px" }}>
                         <BooksFormLayout heading="Update Book Details" onSubmit={handleUpdate} isEdit={true} />
                     </div>
 

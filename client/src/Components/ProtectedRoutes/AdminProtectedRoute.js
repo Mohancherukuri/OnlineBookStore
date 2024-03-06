@@ -13,7 +13,7 @@ function AdminProtectedRoute(props) {
         if(decodedToken.isAdmin){
             return props.children;    
         }
-        return <Navigate to='/login' />
+        return <Navigate to='/' />
     }
 
 

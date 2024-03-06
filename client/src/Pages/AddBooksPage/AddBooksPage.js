@@ -6,7 +6,7 @@ import { Toaster, toast } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from "react-redux"
 import { bookFormValidation } from '../../utils/formValidation';
-
+import './AddBooksPage.css'
 import { showLoading, hideLoading } from '../../Redux/Slices/spinnerSlice';
 
 function AdminAddBooksPage() {
@@ -62,7 +62,7 @@ function AdminAddBooksPage() {
       <div>
         <Toaster />
         <div className='bg-dark d-flex justify-content-center align-items-center' style={{ minHeight: "94vh" }}>
-          <div className='container p-4 text-white'>
+          <div className='container p-4 text-white books-form'>
             <BooksFormLayout heading="Add Book Details" onSubmit={handleAddBook} isEdit={false} />
           </div>
         </div>

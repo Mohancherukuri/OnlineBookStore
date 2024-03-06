@@ -8,7 +8,7 @@ const Footer = () => {
                     <div className="row">
                         <div className="col-md-6 col-lg-5 col-12 ft-1">
                             <h3>Book<span>Shop</span></h3>
-                            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Laborum ea quo ex ullam laboriosam magni totam, facere eos iure voluptate.</p>
+                            <p>From Classics to contemporary bestsellers, find your next adventure.</p>
                             <div className="footer-icons">
                                 <i class="fa-brands fa-facebook"></i>
                                 <i class="fa-brands fa-twitter"></i>

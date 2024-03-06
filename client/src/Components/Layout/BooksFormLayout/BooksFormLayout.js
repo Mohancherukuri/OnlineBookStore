@@ -108,6 +108,7 @@ function BooksFormLayout({ onSubmit, heading, isEdit }) {
                 </div>
 
                 {/* <input type="file" onChange={handleImageChange} /> */}
+                <label>Image</label>
                 <input class="form-control" type="file" id="formFile" onChange={handleImageChange}/>
                 <FormInputField
                     label='Price'
